@@ -10,36 +10,36 @@
 
 <h1>Movies</h1>
 
-<form method="post" class="form-container">
-    <input type="text" name="search" value="@Model.Search"/>
+<form method="post" class="form-container" id="search-and-filter-form">
+    <input type="text" name="search" id="search" value="@Model.Search"/>
 
     <label>
-        <input type="checkbox" value="Not Rated" name="mpaa" checked="@Model.mpaa.Contains("Not Rated")" />
+        <input type="checkbox" value="Not Rated" name="mpaa" checked="@Model.mpaa.Contains("Not Rated")" class="mpaa" />
         Not Rated
     </label>
     <label>
-        <input type="checkbox" value="G" name="mpaa" checked="@Model.mpaa.Contains("G")" />
+        <input type="checkbox" value="G" name="mpaa" checked="@Model.mpaa.Contains("G")" class="mpaa" />
         Rated G
     </label>
     <label>
-        <input type="checkbox" value="PG" name="mpaa" checked="@Model.mpaa.Contains("PG")" />
+        <input type="checkbox" value="PG" name="mpaa" checked="@Model.mpaa.Contains("PG")" class="mpaa" />
         Rated PG
     </label>
     <label>
-        <input type="checkbox" value="PG-13" name="mpaa" checked="@Model.mpaa.Contains("PG-13")" />
+        <input type="checkbox" value="PG-13" name="mpaa" checked="@Model.mpaa.Contains("PG-13")" class="mpaa" />
         Rated PG-13
     </label>
     <label>
-        <input type="checkbox" value="R" name="mpaa" checked="@Model.mpaa.Contains("R")" />
+        <input type="checkbox" value="R" name="mpaa" checked="@Model.mpaa.Contains("R")" class="mpaa" />
         Rated R
     </label>
     <label>
-        <input type="checkbox" value="NC-17" name="mpaa" checked="@Model.mpaa.Contains("NC-17")" />
+        <input type="checkbox" value="NC-17" name="mpaa" checked="@Model.mpaa.Contains("NC-17")" class="mpaa" />
         Rated NC-17
     </label>
 
     <label>
-        <input type="number" min="0" max="10" step="0.1" name="minIMDB" value="@Model.minIMDB" />
+        <input type="number" min="0" max="10" step="0.1" name="minIMDB" value="@Model.minIMDB" id="imdb"/>
         Minimum IMDB Rating
     </label>
 
@@ -56,7 +56,7 @@ else
     <div class="entry-container">
         @foreach (Movie m in Model.Movies)
         {
-        <div class="movie-entry">
+        <div class="movie-entry" data-title="@m.Title" data-mpaa="@m.MPAA_Rating" data-imdb="@m.IMDB_Rating">
             <h2>@m.Title (@m.Release_Year)</h2>
             <p class="genre">@m.Major_Genre</p>
             @if (m.Director != null)
