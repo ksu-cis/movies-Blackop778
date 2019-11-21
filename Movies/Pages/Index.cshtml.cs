@@ -9,7 +9,6 @@ namespace Movies.Pages
 {
     public class IndexModel : PageModel
     {
-        protected MovieDatabase MovieDatabase { get; set; } = new MovieDatabase();
         public IEnumerable<Movie> Movies { get; protected set; }
 
         [BindProperty]
@@ -27,16 +26,16 @@ namespace Movies.Pages
 
         public void OnPost()
         {
+            Movies = MovieDatabase.All;
+
             if (Search != null)
-                Movies = MovieDatabase.Search(Search);
-            else
-                Movies = MovieDatabase.All;
+                Movies = MovieDatabase.Search(Movies, Search);
 
             if (mpaa.Count > 0)
-                Movies = Movies.Intersect(MovieDatabase.FilterByMPAA(mpaa));
+                Movies = MovieDatabase.FilterByMPAA(Movies, mpaa);
 
             if (minIMDB is float nonNullMinIMDB)
-                Movies = Movies.Intersect(MovieDatabase.FilterByMinIMDB(nonNullMinIMDB));
+                Movies = MovieDatabase.FilterByMinIMDB(Movies, nonNullMinIMDB);
         }
     }
 }
